@@ -33,3 +33,51 @@
 ## Lecciones aprendidas
 - Prompts explícitos con "usa data-test" mejoran output inicial, pero review humana es esencial (~50% del effort).
 - IA acelera prototyping, pero over-relies causa debt técnico; commits separados evidencian proceso.
+
+# AI Code Review - Playwright + MCP Framework
+
+## Ejemplos de Código Generado vs Corregido
+
+### Ejemplo 1: Selectores Frágiles
+**ANTES (IA generó):**
+
+// Selector por clase CSS - frágil ante cambios de UI
+this.cartLink = page.locator('.shopping_cart_link');
+this.inventoryList = page.locator('.inventory_list');
+
+**DESPUÉS (Corrección manual)**
+
+// Prioridad: data-test > role > text > CSS
+// Comentario explicativo cuando no hay data-test disponible
+this.cartLink = page.locator('.shopping_cart_link'); // No disponible data-test
+this.inventoryList = page.locator('.inventory_list'); // No disponible data-test
+// Pero para nuevos elementos:
+this.addBackpackButton = page.locator('[data-test="add-to-cart-sauce-labs-backpack"]');
+ ### Ejemplo 2: Validaciones Limitadas
+ **ANTES (IA generó):**
+ async checkout(): Promise<void> {
+  await this.checkoutButton.click();
+  await expect(this.page).toHaveURL(/.*checkout-step-one\.html/);
+}
+
+**DESPUÉS (Corrección manual):**
+async checkout(): Promise<void> {
+  await this.checkoutButton.click();
+  await expect(this.page).toHaveURL(/.*checkout-step-one\.html/);
+  // Validación adicional: elemento visible
+  await expect(this.page.locator('[data-test="firstName"]')).toBeVisible();
+}
+
+ ### Ejemplo 3: Tipado Mejorado
+ **ANTES (IA generó):**
+ async getCartBadgeCount(): Promise<number> {
+  const countText = await this.cartBadge.textContent();
+  return parseInt(countText);
+}
+
+ **DESPUÉS (Corrección manual):**  
+async getCartBadgeCount(): Promise<number> {
+  const countText = await this.cartBadge.textContent();
+  // Manejo de null/undefined y base decimal explícita
+  return countText ? parseInt(countText, 10) : 0;
+}

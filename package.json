@@ -5,6 +5,7 @@
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
+    "test:ci": "playwright test --reporter=html",
     "test:debug": "playwright test --debug",
     "show-report": "playwright show-report",
     "install-browsers": "npx playwright install",
@@ -17,7 +18,7 @@
     "doc": "docs",
     "test": "tests"
   },
-  "description": "",
+  "description": "", 
   "devDependencies": {
     "@playwright/test": "^1.57.0"
   }
