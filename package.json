@@ -1,0 +1,24 @@
+{
+  "name": "playwright-e2e-framework",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "show-report": "playwright show-report",
+    "install-browsers": "npx playwright install",
+    "mcp": "npx @playwright/mcp@latest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0"
+  }
+}
