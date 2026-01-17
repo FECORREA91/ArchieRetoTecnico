@@ -1,14 +1,14 @@
-import { test, expect } from '@playwright/test';
-import LoginPage from '../pages/login.page';
+import { test, expect } from '../fixtures/test';
 
 test('page title is Swag Labs', async ({ page }) => {
   await page.goto('https://www.saucedemo.com');
   await expect(page).toHaveTitle('Swag Labs');
 });
 
-test('shows error on invalid login with multiple validations', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  
+test('shows error on invalid login with multiple validations', async ({ 
+  loginPage, 
+  page 
+}) => {
   await loginPage.goto();
   await loginPage.login('invalid_user', 'wrong_password');
   
