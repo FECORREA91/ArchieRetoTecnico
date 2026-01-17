@@ -33,7 +33,7 @@ export default class CheckoutPage {
   async finish(): Promise<void> {
     await this.finishButton.click();
     await expect(this.page).toHaveURL(/.*checkout-complete\.html/);
-    await expect(this.completeHeader).toHaveText('THANK YOU FOR YOUR ORDER');
+    await expect(this.completeHeader).toHaveText('Thank you for your order!');
   }
 
   async getSummaryInfo(): Promise<string> {
